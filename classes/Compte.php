@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 
 /**
  * Objet Compte Bancaire
@@ -19,8 +19,11 @@ class Compte
      */
     public float $solde;
 
+    // Constantes
+    const TAUX_INTERETS = 5;
 
     // Méthodes
+
     /**
      * Constructeur du compte bancaire
      *
@@ -34,6 +37,65 @@ class Compte
 
         // On attribue le montant à la propriété solde
         $this->solde = $montant;
+        // // On attribue le montant à la propriété solde en ajoutant le taux d'intérêts
+        // $this->solde = $montant + ($montant * self::TAUX_INTERETS / 100);
+    }
+
+
+    /**
+     * Méthode magique pour le conversion en chaîne de caractères
+     *
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return "Vous visualizez le compte de {$this->titulaire}, le solde est de {$this->solde} euros.";
+    }
+
+    // Accesseurs
+
+    /**
+     * Getter du Titulaire - Retourne la valeur du titulaire du compte
+     * @return string
+     */
+    public function getTitulaire(): string
+    {
+        return $this->titulaire;
+    }
+
+    /**
+     * Modifie  le nom du titulaire du compte et retourne l'objet
+     * @param string $nom Nom du titulaire
+     * @return Compte Compte bancaire
+     */
+    public function setTitulaire(string $nom): self
+    {
+        $this->titulaire = $nom;
+        return $this;
+    }
+
+    /**
+     * Retourne le solde du compte
+     *
+     * @return float Solde du Compte
+     */
+    public function getSolde(): float
+    {
+        return $this->solde;
+    }
+
+    /**
+     * Modifie le solde du compte
+     *
+     * @param float $montant Montant du solde
+     * @return Compte Compte bancaire
+     */
+    public function setSolde(float $montant): self
+    {
+        if ($montant >= 0) {
+            $this->solde = $montant;
+        }
+        return $this;
     }
 
     /**
@@ -64,6 +126,7 @@ class Compte
         } else {
             echo "Montant invalide ou solde insuffisant.\n";
         }
+        $this->decouvert();
     }
 
     /**
@@ -74,5 +137,15 @@ class Compte
     public function voirSolde(): string
     {
         return "Le solde du compte est de $this->solde.\n";
+    }
+
+    private function decouvert(): bool
+    {
+        if ($this->solde < 0) {
+            echo "Vous êtes à découvert.\n";
+        } else {
+            echo "Vous n'êtes pas à découvert.\n";
+        }
+        return $this->solde < 0;
     }
 }
