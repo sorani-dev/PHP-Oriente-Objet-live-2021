@@ -1,17 +1,18 @@
 <?php
 declare(strict_types=1);
 
-require_once __DIR__ . '/classes/Compte.php';
-require_once __DIR__ . '/classes/CompteCourant.php';
-require_once __DIR__ . '/classes/CompteEpargne.php';
-require_once __DIR__ . '/classes/CompteEpargneCourant.php';
+use App\Banque\{CompteCourant, CompteEpargne, CompteEpargneCourant};
+use App\Client\Compte as CompteClient;
+
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'classes' . DIRECTORY_SEPARATOR . 'App' . DIRECTORY_SEPARATOR . 'Autoloader.php';
+\App\Autoloader::register();
 
 // On instancie le compte courant
 $compte1 = new CompteCourant('Simon', $montant=500, 200);
 $compte1->setDecouvert(200);
 var_dump($compte1);
 
-$compte1->setTitulaire('Clemence');
+$compte1->setTitulaire('Clémence');
 $compte1->retirer(300);
 var_dump($compte1);
 
@@ -42,3 +43,8 @@ $compteEpargneCourant->retirer(100);
 $compteEpargneCourant->setSolde(10);
 $compteEpargneCourant->verserInterets();
 var_dump($compteEpargneCourant);
+
+
+// Compte client
+$client = new CompteClient();
+var_dump($client);

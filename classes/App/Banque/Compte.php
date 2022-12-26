@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+namespace App\Banque;
+
 /**
  * Objet Compte Bancaire
  */
@@ -20,6 +22,7 @@ abstract class Compte
     protected float $solde;
 
     // Méthodes
+
     /**
      * Constructeur du compte bancaire
      *
@@ -33,7 +36,7 @@ abstract class Compte
 
         // On attribue le montant à la propriété solde
         $this->solde = $montant;
-   }
+    }
 
 
     /**

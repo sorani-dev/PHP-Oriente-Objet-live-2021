@@ -1,9 +1,10 @@
 <?php
-
+declare(strict_types=1);
+namespace App\Banque;
 class CompteEpargne extends Compte
 {
     /**
-     * Taux d'interêts du compte (en pourcentage, de 1 à 100)
+     * Taux d'intérêts du compte (en pourcentage, de 1 à 100)
      *
      * @var integer
      */
@@ -24,7 +25,7 @@ class CompteEpargne extends Compte
     }
 
     /**
-     * Get taux d'interêts du compte
+     * Get taux d'intérêts du compte
      *
      * @return  int
      */
@@ -34,7 +35,7 @@ class CompteEpargne extends Compte
     }
 
     /**
-     * Set taux d'interêts du compte
+     * Set taux d'intérêts du compte
      *
      * @param  int  $tauxInterets  Taux d'interêts du compte
      *

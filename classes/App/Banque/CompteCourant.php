@@ -1,5 +1,6 @@
 <?php
-
+declare(strict_types=1);
+namespace App\Banque;
 /**
  * Compte bancaire (hérite de Compte)
  */
@@ -14,7 +15,7 @@ class CompteCourant extends Compte
     /**
      * Constructeur de compte courant
      * @param string $nom Nom du titulaire
-     * @param float $montant MOntant du solde à l'ouverture
+     * @param float $montant Montant du solde à l'ouverture
      * @param int $decouvert Découvert autorisé
      */
     public function __construct(string $nom, float $montant, int $decouvert)
