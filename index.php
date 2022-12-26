@@ -2,57 +2,43 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/classes/Compte.php';
+require_once __DIR__ . '/classes/CompteCourant.php';
+require_once __DIR__ . '/classes/CompteEpargne.php';
+require_once __DIR__ . '/classes/CompteEpargneCourant.php';
 
-// On instancie le compte
-$compte1 = new Compte('Simon', $montant=500);
-
-// On écrit dans la propriété titulaire
-//$compte1->titulaire = 'Simon';
-
-// On écrit dans la propriété solde
-//$compte1->solde = 500;
-
-// Avec ancien solde
+// On instancie le compte courant
+$compte1 = new CompteCourant('Simon', $montant=500, 200);
+$compte1->setDecouvert(200);
 var_dump($compte1);
 
-echo "Setter: 200 euros" . PHP_EOL;
-// Solde sera de 200 euros après le setter
-$compte1->setSolde(200);
-
+$compte1->setTitulaire('Clemence');
+$compte1->retirer(300);
 var_dump($compte1);
 
-// On dépose 100 euros
-echo "Dépose: 100 euros" . PHP_EOL;
-$compte1->deposer(100);
-// Montant invalide
-$compte1->deposer(0);
+// On instancie le compte épargne
+$compteEpargne = new CompteEpargne('Rika', 200, 1);
 
-var_dump($compte1);
-?>
-<p><?=$compte1->voirSolde();?></p>
-<?php
+var_dump($compteEpargne);
 
-// Retire plus que le solde courant
-echo "Retire: 500 euros" . PHP_EOL;
-$compte1->retirer(500);
-var_dump($compte1);
+$compteEpargne->setTauxInterets(10);
 
-// Retirer un montant invalide
-$compte1->retirer(700);
-$compte1->retirer(-10);
-$compte1->retirer(0);
+var_dump($compteEpargne);
 
-echo "Le taux d'intêrets du compte est: " . Compte::TAUX_INTERETS . "%." . PHP_EOL;
+$compteEpargne->verserInterets();
 
-// Compte en chaîne de caractères
-echo $compte1 . PHP_EOL;
+var_dump($compteEpargne);
 
-// Seconde instance de compte
-$compte2 = new  Compte($nom='Tinkerbell', $solde=389.25);
+// On instancie le compte épargne courant
+$compteEpargneCourant = new CompteEpargneCourant('Tinkerbell', 200, 7, 100);
+var_dump($compteEpargneCourant);
 
-//$compte2->titulaire = 'Tinkerbell';
-//$compte2->solde = 389.25;
-var_dump($compte2);
+// retirer plus que ce qui est disponible sur le compte
+$compteEpargneCourant->retirer(201);
+var_dump($compteEpargneCourant);
 
-$compte3 = new  Compte($nom='Wendy');
-var_dump($compte3);
+// retire plus que le découvert autorisé
+$compteEpargneCourant->retirer(100);
+
+$compteEpargneCourant->setSolde(10);
+$compteEpargneCourant->verserInterets();
+var_dump($compteEpargneCourant);

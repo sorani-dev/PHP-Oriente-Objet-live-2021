@@ -4,26 +4,22 @@ declare(strict_types=1);
 /**
  * Objet Compte Bancaire
  */
-class Compte
+abstract class Compte
 {
     // Propriétés
     /**
      * Titulaire du compte
      * @var string
      */
-    public string $titulaire;
+    private string $titulaire;
 
     /**
      * Solde du compte
      * @var float
      */
-    public float $solde;
-
-    // Constantes
-    const TAUX_INTERETS = 5;
+    protected float $solde;
 
     // Méthodes
-
     /**
      * Constructeur du compte bancaire
      *
@@ -37,9 +33,7 @@ class Compte
 
         // On attribue le montant à la propriété solde
         $this->solde = $montant;
-        // // On attribue le montant à la propriété solde en ajoutant le taux d'intérêts
-        // $this->solde = $montant + ($montant * self::TAUX_INTERETS / 100);
-    }
+   }
 
 
     /**
@@ -126,7 +120,6 @@ class Compte
         } else {
             echo "Montant invalide ou solde insuffisant.\n";
         }
-        $this->decouvert();
     }
 
     /**
@@ -137,15 +130,5 @@ class Compte
     public function voirSolde(): string
     {
         return "Le solde du compte est de $this->solde.\n";
-    }
-
-    private function decouvert(): bool
-    {
-        if ($this->solde < 0) {
-            echo "Vous êtes à découvert.\n";
-        } else {
-            echo "Vous n'êtes pas à découvert.\n";
-        }
-        return $this->solde < 0;
     }
 }
