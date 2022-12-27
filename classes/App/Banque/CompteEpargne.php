@@ -17,10 +17,10 @@ class CompteEpargne extends Compte
      * @param float $montant Montant initial du solde
      * @param int $taux Taux d'intérêts
      */
-    public function __construct(string $nom, float $montant, int $taux)
+    public function __construct(string $nom, string $prenom, float $montant, int $taux)
     {
         // On transfère les valeurs nécessaires au constructeur parent
-        parent::__construct($nom, $montant);
+        parent::__construct($nom, $prenom, $montant);
         $this->tauxInterets = $taux;
     }
 

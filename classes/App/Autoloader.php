@@ -12,10 +12,10 @@ class Autoloader
     }
 
     /**
-     * @param string $class
+     * @param string $className
      * @return void
      */
-    public static function autoload(string $className)
+    public static function autoload(string $className): void
     {
         // On récupère dans $className la totalité du namespace de la classe concernée. (ex: App\Client/Compte)
         $path = str_ireplace(__NAMESPACE__ . '\\', DIRECTORY_SEPARATOR, $className);

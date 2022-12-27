@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Banque;
 
+use App\Client\Compte as CompteClient;
+
 /**
  * Objet Compte Bancaire
  */
@@ -11,10 +13,10 @@ abstract class Compte
     // Propriétés
     /**
      * Titulaire du compte
-     * @var string
+     * @var CompteClient
      */
-    private string $titulaire;
-
+    private CompteClient $titulaire;
+ 
     /**
      * Solde du compte
      * @var float
@@ -29,10 +31,10 @@ abstract class Compte
      * @param string $nom Nom du titulaire
      * @param float $montant Montant initial du solde
      */
-    public function __construct(string $nom, float $montant = 100)
+    public function __construct(string $nom, string $prenom, float $montant = 100)
     {
         // On attribue le nom à la propriété titulaire de l'instance créée
-        $this->titulaire = $nom;
+        $this->titulaire = new CompteClient($nom, $prenom);
 
         // On attribue le montant à la propriété solde
         $this->solde = $montant;
@@ -53,21 +55,24 @@ abstract class Compte
 
     /**
      * Getter du Titulaire - Retourne la valeur du titulaire du compte
-     * @return string
+     * @return CompteClient
      */
-    public function getTitulaire(): string
+    public function getTitulaire(): CompteClient
     {
         return $this->titulaire;
     }
 
     /**
      * Modifie  le nom du titulaire du compte et retourne l'objet
-     * @param string $nom Nom du titulaire
+     * @param CompteClient $compte
      * @return Compte Compte bancaire
      */
-    public function setTitulaire(string $nom): self
+    public function setTitulaire(CompteClient $compte): self
     {
-        $this->titulaire = $nom;
+        // On vérifie  on a un titulaire
+        if (isset($compte)) {
+            $this->titulaire = $compte;
+        }
         return $this;
     }
 
