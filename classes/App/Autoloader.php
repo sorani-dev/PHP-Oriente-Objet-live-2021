@@ -19,7 +19,7 @@ class Autoloader
     {
         // On récupère dans $className la totalité du namespace de la classe concernée. (ex: App\Client/Compte)
         $path = str_ireplace(__NAMESPACE__ . '\\', DIRECTORY_SEPARATOR, $className);
-        // On remplace les \ par le caract  ère de séparateur de répertoire (ex: /)
+        // On remplace les \ par le caractère de séparateur de répertoire (ex: /)
         $path = str_ireplace('\\', DIRECTORY_SEPARATOR, $path);
         $fichier = __DIR__. DIRECTORY_SEPARATOR . $path . '.php';
         // On vérifie que le fichier existe

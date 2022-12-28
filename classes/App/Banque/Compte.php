@@ -28,13 +28,13 @@ abstract class Compte
     /**
      * Constructeur du compte bancaire
      *
-     * @param string $nom Nom du titulaire
+     * @param CompteClient $compte Compte client du titulaire
      * @param float $montant Montant initial du solde
      */
-    public function __construct(string $nom, string $prenom, float $montant = 100)
+    public function __construct(CompteClient $compte, float $montant = 100)
     {
         // On attribue le nom à la propriété titulaire de l'instance créée
-        $this->titulaire = new CompteClient($nom, $prenom);
+        $this->titulaire = $compte;
 
         // On attribue le montant à la propriété solde
         $this->solde = $montant;
@@ -48,13 +48,13 @@ abstract class Compte
      */
     public function __toString(): string
     {
-        return "Vous visualizez le compte de {$this->titulaire}, le solde est de {$this->solde} euros.";
+        return "Vous visualisez le compte de {$this->titulaire}, le solde est de {$this->solde} euros.";
     }
 
     // Accesseurs
 
     /**
-     * Getter du Titulaire - Retourne la valeur du titulaire du compte
+     * Getter du Titulaire - Retourne la valeur du Compte du titulaire du compte
      * @return CompteClient
      */
     public function getTitulaire(): CompteClient
@@ -63,16 +63,13 @@ abstract class Compte
     }
 
     /**
-     * Modifie  le nom du titulaire du compte et retourne l'objet
-     * @param CompteClient $compte
+     * Modifie le compte du titulaire du compte et retourne l'objet
+     * @param CompteClient $compte Nouveau Compte Client du titulaire
      * @return Compte Compte bancaire
      */
     public function setTitulaire(CompteClient $compte): self
     {
-        // On vérifie  on a un titulaire
-        if (isset($compte)) {
-            $this->titulaire = $compte;
-        }
+        $this->titulaire = $compte;
         return $this;
     }
 
