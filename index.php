@@ -1,33 +1,45 @@
 <?php
 declare(strict_types=1);
 
-use App\Autoloader;
-use App\Client\Compte as CompteClient;
-use App\Banque\{CompteCourant, CompteEpargne};
+use Models\Model;
 
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'classes' . DIRECTORY_SEPARATOR . 'App' . DIRECTORY_SEPARATOR . 'Autoloader.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'classes' . DIRECTORY_SEPARATOR . 'Autoloader.php';
 Autoloader::register();
 
 
-// Compte client
-$client = new CompteClient('Sora', 'Nakamura', 'Kyoto');
-var_dump($client);
+$model = new \Models\AnnoncesModel();
+var_dump($model);
+$annonces = $model->findBy(['actif' => 1]);
+var_dump($annonces);
 
-// On instancie le compte courant
-$compte1 = new CompteCourant($client,  montant: 500, decouvert: 200);
-//$compte1->setDecouvert(200);
-//var_dump($compte1);
-//
-//$compte1->setTitulaire('Clémence');
-//$compte1->retirer(300);
-var_dump($compte1);
 
-// On instancie le compte épargne
-$compteEpargne = new CompteEpargne($client, 200, 1);
-var_dump($compteEpargne);
+$model = new \Models\UsersModel();
+var_dump($model);
+$user = $model->setEmail('contact@simon-invalid.tld')
+    ->setPassword(password_hash('azerty', PASSWORD_ARGON2I));
+$model->create($user);
+die;
 
-$compteEpargne->setTauxInterets(10);
-var_dump($compteEpargne);
+$annonce = new \Models\AnnoncesModel();
+// Hydratation
 
-$compteEpargne->verserInterets();
-var_dump($compteEpargne);
+$donnees = [
+    'titre' => 'Annonce hydratée 2',
+    'titre' => 'Description de l\'annonce hydratée 2',
+    'actif' => 1,
+];
+
+$annonce->hydrate($donnees);
+var_dump($annonce);
+$success = $model->update(6, $annonce);
+var_export($success);
+
+$model->delete(3);
+
+// Création directe
+$model = new \Models\AnnoncesModel();
+$annonce = $model->setTitre('Nouvelle annonce')
+    ->setDescription('Nouvelle description')
+    ->setActif(false);
+
+// $model->create($annonce);

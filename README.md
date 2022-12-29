@@ -6,3 +6,4 @@ Playlist de **Nouvelle Techno** dans une série de live pendant le premier confi
 3. Héritages
 4. Namespace et Autoload
 5. Injection de dépendances
+6. Base de données
